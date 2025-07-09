@@ -35,7 +35,7 @@ export const createExpenseController = async (req: express.Request, res: express
             amount: amount,
             category: category,
             description: description,
-            date: Date.now(),
+            date: new Date(),
             user: req.user,
         });
         

@@ -62,9 +62,9 @@ export const loginController = async (req: Request, res: Response): Promise<void
             return;
         }
 
-        const token = jwt.sign({ sub: user.id }, process.env.JWT_SECRET!, { expiresIn: '7d' });
+        const token = jwt.sign({ sub: user.id ,user:{name:user.fullname,email:user.email}}, process.env.JWT_SECRET!, { expiresIn: '7d' });
 
-        res.status(200).json({ message: "Login successful", accesToken: token});
+        res.status(200).json({ message: "Login successful", accessToken: token});
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Internal server error" });

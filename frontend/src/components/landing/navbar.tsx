@@ -47,11 +47,13 @@ interface Navbar1Props {
   }[];
 }
 export default function NavbarLanding({
+
+
   logo = {
     url: "https://www.shadcnblocks.com",
     src: "https://www.shadcnblocks.com/images/block/block-1.svg",
     alt: "logo",
-    title: "LaunchSaas.com",
+    title: "Finance Buddy",
   },
   menu = [
     { title: "Home", url: "#" },
@@ -136,13 +138,13 @@ export default function NavbarLanding({
               <Image src={logo.src} width={2} height={2} alt={logo.alt} />
               <span className="text-lg font-semibold">{logo.title}</span>
             </a>
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <NavigationMenu>
                 <NavigationMenuList>
                   {menu.map((item) => renderMenuItem(item))}
                 </NavigationMenuList>
               </NavigationMenu>
-            </div>
+            </div> */}
           </div>
           <div className="flex gap-2">
             <AuthNavButtons />
@@ -262,7 +264,7 @@ const SubMenuLink = ({ item }: { item: MenuItem }) => {
             {item.description}
           </p>
         )}
-      </div>
+</div>
     </a>
   );
 };

@@ -1,8 +1,13 @@
-import { ArrowRight, Github, Globe } from "lucide-react";
+"use client"
+import { ArrowRight, Globe } from "lucide-react";
 import NavbarLanding from "@/components/landing/navbar";
 import Link from "next/link";
+import { useEffect } from "react";
+import { useTokenValid } from "@/lib/tokenVerify";
 
-export default async function HomePage() {
+export default function HomePage() {
+
+ 
   return (
     <div className="container mx-auto p-4">
       <NavbarLanding />
@@ -16,31 +21,26 @@ export default async function HomePage() {
             </div>
 
             <h1 className="mb-6 text-4xl font-bold tracking-tight md:text-6xl">
-              A better way to monitor your services.
+              Take control of your finances.
             </h1>
 
             <p className="mx-auto mb-10 max-w-2xl text-lg text-gray-600">
-              Monitor your API and website globally, identify performance
-              issues, downtime and receive alerts before your users are
-              affected.
+              Track your expenses, categorize spending, and gain insights into your financial habits with our modern expense tracker.
             </p>
 
             <div className="flex flex-wrap justify-center gap-4">
               <Link
-                href="#"
+                href="/app/dashboard"
                 className="rounded-full bg-gray-900 px-6 py-3 text-sm font-medium text-white hover:bg-gray-800"
               >
                 Get Started
               </Link>
               <Link
-                href="#"
+                href="/app/addexpense"
                 className="flex items-center gap-2 rounded-full border border-gray-200 px-6 py-3 text-sm font-medium hover:bg-gray-50"
               >
-                <Github className="h-4 w-4" />
-                Star on GitHub
-                <span className="ml-1 rounded-full bg-gray-100 px-2 py-0.5 text-xs">
-                  7K
-                </span>
+                <ArrowRight className="h-4 w-4" />
+                Add Expense
               </Link>
             </div>
           </div>
@@ -49,23 +49,23 @@ export default async function HomePage() {
         <section className="container mx-auto px-4 py-16">
           <div className="text-center mb-16">
             <h2 className="text-sm font-medium text-gray-500 mb-12">
-              Trusted By
+              Trusted by thousands
             </h2>
             <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
               <div className="flex items-center gap-1">
-                <div className="font-bold">HAKKO</div>
+                <div className="font-bold">Personal</div>
                 <ArrowRight className="h-3 w-3" />
               </div>
               <div className="flex items-center gap-1">
-                <div className="font-medium">Documentso</div>
+                <div className="font-medium">Business</div>
                 <ArrowRight className="h-3 w-3" />
               </div>
               <div className="flex items-center gap-1">
-                <div className="font-medium">midday</div>
+                <div className="font-medium">Students</div>
                 <ArrowRight className="h-3 w-3" />
               </div>
               <div className="flex items-center gap-1">
-                <div className="font-bold">Cal.com</div>
+                <div className="font-bold">Families</div>
                 <ArrowRight className="h-3 w-3" />
               </div>
             </div>
@@ -81,17 +81,17 @@ export default async function HomePage() {
                   stroke="currentColor"
                   strokeWidth="2"
                 >
-                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
                 </svg>
               </div>
               <h2 className="text-2xl font-bold md:text-3xl">
-                Synthetic Monitoring
+                Smart Expense Tracking
               </h2>
             </div>
 
             <div className="flex flex-col md:flex-row gap-8 items-center">
               <div className="md:w-1/2">
-                <div className="aspect-square w-full max-w-xs mx-auto bg-black rounded-full"></div>
+                <div className="aspect-square w-full max-w-xs mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl"></div>
               </div>
               <div className="md:w-1/2 space-y-6">
                 <div className="flex items-start gap-3">
@@ -99,10 +99,9 @@ export default async function HomePage() {
                     <Globe className="h-3 w-3" />
                   </div>
                   <div>
-                    <h3 className="font-medium">Latency Monitoring</h3>
+                    <h3 className="font-medium">Category Insights</h3>
                     <p className="text-gray-600 mt-1">
-                      Monitor the latency of your endpoints from all over the
-                      world. We support all the continents.
+                      Automatically categorize your expenses and get insights into your spending patterns with detailed analytics.
                     </p>
                   </div>
                 </div>

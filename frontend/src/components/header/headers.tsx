@@ -7,9 +7,7 @@ interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   actions?: React.ReactNode | React.ReactNode[];
 }
 
-/**
- * use `children` to include a Button e.g.
- */
+
 function Header({ title, description, className, actions }: HeaderProps) {
   return (
     <div

@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -11,10 +12,32 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ModeToggle } from "../mode-toggle";
-import { Moon, Sun } from "lucide-react";
+import { LogOutIcon, Moon, Sun } from "lucide-react";
+import { useTokenValid } from "@/lib/tokenVerify";
 
-export async function UserNav() {
+type User = {
+  name?: string;
+  email?: string;
+};
 
+type UserData = {
+  user?: User;
+};
+
+export  function UserNav() {
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = "/sign-in";
+  };
+
+  const tokenResult = useTokenValid();
+  const userData: UserData = tokenResult && typeof tokenResult === "object" && "user" in tokenResult
+    ? { user: tokenResult.user as User }
+    : {};
+
+   
 
   return (
     <DropdownMenu>
@@ -22,11 +45,13 @@ export async function UserNav() {
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
             <AvatarImage
-              src="https://github.com/shadcn.png"
-              // alt={fullUser.name}
+              src="/profile-img.jpg"
+              alt={userData?.user?.name || "User "}
             />
             <AvatarFallback className="bg-gradient-to-br from-foreground via-muted-foreground to-muted opacity-70">
-              j
+              {userData?.user?.name
+                ? userData.user.name.charAt(0).toUpperCase()
+                : "U"}
             </AvatarFallback>
           </Avatar>
         </Button>
@@ -35,26 +60,15 @@ export async function UserNav() {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="truncate font-medium text-sm leading-none">
-              {/* {fullUser?.name} */}
-              jabir
+              {userData && userData.user ? userData.user.name : "User"}
             </p>
             <p className="truncate text-muted-foreground text-xs leading-none">
-              {/* {fullUser?.email} */}
-              jamsheed
+              {userData && userData.user ? userData.user.email : ""}
             </p>
           </div>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem asChild>
-            <Link href={`/app/settings/billing`}>Billing</Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Link href={`/app/settings/user`}>Profile</Link>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>{" "}
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup className="p-0">
+    
+        {/* <DropdownMenuGroup className="p-0">
           <ModeToggle>
             <DropdownMenuItem>
               <div>Theme</div>
@@ -63,10 +77,11 @@ export async function UserNav() {
               <span className="sr-only">Toggle theme</span>
             </DropdownMenuItem>
           </ModeToggle>
-        </DropdownMenuGroup>
+        </DropdownMenuGroup> */}
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          here logout button
+        <DropdownMenuItem onClick={handleLogout}>
+          <LogOutIcon className="mr-2 h-4 w-4 text-red-500 " />
+          Logout
           {/* <LogOutButton /> */}
         </DropdownMenuItem>
       </DropdownMenuContent>
