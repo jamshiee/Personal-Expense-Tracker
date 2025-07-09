@@ -17,8 +17,8 @@ import { Select } from "@/components/ui/select";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import axiosInstance from "@/config/axiosInstance";
 import { useRouter } from "next/navigation";
+import { createExpense } from "@/actions/expenses";
 
 const expenseSchema = z.object({
   amount: z.string().min(1, "Amount is required").refine((val) => {
@@ -49,15 +49,20 @@ export default function AddExpensePage() {
     
     try {
       console.log("Form submitted with data:", data);
-      const response = await axiosInstance.post('/expenses', {
+      const result = await createExpense({
         amount: parseFloat(data.amount),
         description: data.description,
         category: data.category
       });
-      console.log("Response from server:", response.data);
-      toast.success("Expense added successfully!");
-      router.push("/app/dashboard"); 
-      form.reset();
+      
+      if (result.success) {
+        console.log("Response from server:", result.data);
+        toast.success("Expense added successfully!");
+        router.push("/app/dashboard"); 
+        form.reset();
+      } else {
+        toast.error(result.error);
+      }
     } catch (error) {
       console.error("Error adding expense:", error);
       toast.error("Failed to add expense. Please try again.");
@@ -114,11 +119,11 @@ export default function AddExpensePage() {
                             className="h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg"
                           >
                             <option value="">Select a category</option>
-                            <option value="Food">🍔 Food</option>
-                            <option value="Transport">🚗 Transport</option>
-                            <option value="Bills">📄 Bills</option>
-                            <option value="Shopping">🛍️ Shopping</option>
-                            <option value="Others">📝 Others</option>
+                            <option value="Food"> Food</option>
+                            <option value="Transport"> Transport</option>
+                            <option value="Bills"> Bills</option>
+                            <option value="Shopping"> Shopping</option>
+                            <option value="Others"> Others</option>
                           </Select>
                         </FormControl>
                         <FormMessage />
@@ -127,7 +132,6 @@ export default function AddExpensePage() {
                   />
                 </div>
 
-                {/* Description Field */}
                 <FormField
                   control={form.control}
                   name="description"

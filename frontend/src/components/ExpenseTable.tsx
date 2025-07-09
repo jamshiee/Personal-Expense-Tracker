@@ -15,8 +15,8 @@ import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { RefreshCw, Edit, Trash2, Save, X } from "lucide-react";
-import axiosInstance from "@/config/axiosInstance";
 import { toast } from "sonner";
+import { deleteExpense as deleteExpenseAction, updateExpense as updateExpenseAction } from "@/actions/expenses";
 
 interface Expense {
   id: number;
@@ -55,10 +55,14 @@ export default function ExpenseTable({
     }
 
     try {
-      await axiosInstance.delete(`/expenses/${id}`);
-      const updatedExpenses = expenses.filter(expense => expense.id !== id);
-      onExpensesUpdate(updatedExpenses);
-      toast.success("Expense deleted successfully!");
+      const result = await deleteExpenseAction(id);
+      if (result.success) {
+        const updatedExpenses = expenses.filter(expense => expense.id !== id);
+        onExpensesUpdate(updatedExpenses);
+        toast.success("Expense deleted successfully!");
+      } else {
+        toast.error(result.error);
+      }
     } catch (error) {
       console.error("Error deleting expense:", error);
       toast.error("Failed to delete expense");
@@ -88,24 +92,28 @@ export default function ExpenseTable({
   // Save edited expense
   const saveEdit = async (id: number) => {
     try {
-      const response = await axiosInstance.put(`/expenses/${id}`, {
+      const result = await updateExpenseAction(id, {
         amount: parseFloat(editForm.amount),
         description: editForm.description,
         category: editForm.category,
       });
 
-      const updatedExpenses = expenses.map(expense =>
-        expense.id === id ? { ...expense, ...response.data.expense } : expense
-      );
-      onExpensesUpdate(updatedExpenses);
-      
-      setEditingExpense(null);
-      setEditForm({
-        amount: "",
-        description: "",
-        category: "",
-      });
-      toast.success("Expense updated successfully!");
+      if (result.success) {
+        const updatedExpenses = expenses.map(expense =>
+          expense.id === id ? { ...expense, ...result.data.expense } : expense
+        );
+        onExpensesUpdate(updatedExpenses);
+        
+        setEditingExpense(null);
+        setEditForm({
+          amount: "",
+          description: "",
+          category: "",
+        });
+        toast.success("Expense updated successfully!");
+      } else {
+        toast.error(result.error);
+      }
     } catch (error) {
       console.error("Error updating expense:", error);
       toast.error("Failed to update expense");

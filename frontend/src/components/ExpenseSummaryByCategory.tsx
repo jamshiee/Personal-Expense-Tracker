@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PieChart, TrendingUp, Plus } from "lucide-react";
-import axiosInstance from "@/config/axiosInstance";
 import { toast } from "sonner";
+import { getExpenseSummaryByCategory } from "@/actions/expenses";
 
 interface CategorySummary {
   [category: string]: number;
@@ -21,8 +21,13 @@ export default function ExpenseSummaryByCategory() {
     setError(null);
     
     try {
-      const response = await axiosInstance.get("/expenses/summary");
-      setSummary(response.data);
+      const result = await getExpenseSummaryByCategory();
+      if (result.success) {
+        setSummary(result.data);
+      } else {
+        setError(result.error || "Failed to load expense summary");
+        toast.error(result.error || "Failed to load expense summary");
+      }
     } catch (error) {
       console.error("Error fetching expense summary:", error);
       setError("Failed to load expense summary");

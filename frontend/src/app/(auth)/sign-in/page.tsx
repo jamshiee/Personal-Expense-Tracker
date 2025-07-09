@@ -1,12 +1,7 @@
 import Link from "next/link";
 import { SignInForm } from "./SignInForm";
 
-export default async function SignIn({
-  searchParams,
-}: {
-  searchParams: Promise<{ oauthError?: string }>;
-}) {
-  const { oauthError } = await searchParams;
+export default  function SignIn() {
 
   return (
     <div className="container flex h-screen w-screen flex-col items-center justify-center">
@@ -19,7 +14,6 @@ export default async function SignIn({
             Sign in to your account
           </p>
         </div>
-        {oauthError && <div className="text-destructive">{oauthError}</div>}
         <div className="grid gap-6">
           <SignInForm />
         </div>

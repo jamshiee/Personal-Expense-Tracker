@@ -7,7 +7,7 @@ import { AppTabs } from "./app-tabs";
 import { Shell } from "./shell";
 import Image from "next/image";
 
-export async function AppHeader() {
+export  function AppHeader() {
 
   return (
     <header className="sticky top-2 z-50 w-full border-border">

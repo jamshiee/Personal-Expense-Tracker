@@ -2,8 +2,6 @@
 import { ArrowRight, Globe } from "lucide-react";
 import NavbarLanding from "@/components/landing/navbar";
 import Link from "next/link";
-import { useEffect } from "react";
-import { useTokenValid } from "@/lib/tokenVerify";
 
 export default function HomePage() {
 
@@ -30,13 +28,13 @@ export default function HomePage() {
 
             <div className="flex flex-wrap justify-center gap-4">
               <Link
-                href="/app/dashboard"
+                href="/sign-in"
                 className="rounded-full bg-gray-900 px-6 py-3 text-sm font-medium text-white hover:bg-gray-800"
               >
                 Get Started
               </Link>
               <Link
-                href="/app/addexpense"
+                href="/app"
                 className="flex items-center gap-2 rounded-full border border-gray-200 px-6 py-3 text-sm font-medium hover:bg-gray-50"
               >
                 <ArrowRight className="h-4 w-4" />
@@ -46,7 +44,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="container mx-auto px-4 py-16">
+        <section className="container mx-auto px-4 py-19">
           <div className="text-center mb-16">
             <h2 className="text-sm font-medium text-gray-500 mb-12">
               Trusted by thousands
@@ -71,43 +69,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="mx-auto max-w-4xl rounded-xl bg-gray-50 p-8 md:p-12">
-            <div className="text-center mb-10">
-              <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-white">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                </svg>
-              </div>
-              <h2 className="text-2xl font-bold md:text-3xl">
-                Smart Expense Tracking
-              </h2>
-            </div>
-
-            <div className="flex flex-col md:flex-row gap-8 items-center">
-              <div className="md:w-1/2">
-                <div className="aspect-square w-full max-w-xs mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl"></div>
-              </div>
-              <div className="md:w-1/2 space-y-6">
-                <div className="flex items-start gap-3">
-                  <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-white">
-                    <Globe className="h-3 w-3" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium">Category Insights</h3>
-                    <p className="text-gray-600 mt-1">
-                      Automatically categorize your expenses and get insights into your spending patterns with detailed analytics.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          
         </section>
       </main>
     </div>

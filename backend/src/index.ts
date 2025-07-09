@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes.js';
 import expenseRoutes from './routes/expenseRoutes.js';
+import cookieParser from 'cookie-parser';
 import { AppDataSource } from './config/ormconfig.js';
 dotenv.config();
 const PORT = process.env.PORT || 3000;
@@ -19,6 +20,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/api/auth', authRoutes)
 app.use('/api', expenseRoutes)

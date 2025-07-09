@@ -15,9 +15,9 @@ import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axiosInstance from "@/config/axiosInstance";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { signIn } from "@/actions/auth";
 
 
 export const signInSchema = z.object({
@@ -44,24 +44,21 @@ export function SignInForm() {
     setError(undefined);
 
     try {
-      const response = await axiosInstance.post("/auth/login", data);
-      if (response) {
-
-        localStorage.setItem("token", response.data.accessToken);
+      const result = await signIn(data);
+      
+      if (result.success) {
+        localStorage.setItem("token", result.data.accessToken);
         toast.success("Login successful! ");
-        console.log("Form submission successful:", response.data);
+        console.log("Form submission successful:", result.data);
         router.push("/app/dashboard");
+      } else {
+        setError(result.error);
+        toast.error("Login unsuccessful! " + result.error);
       }
     } catch (err: any) {
-      if (err.response?.data?.message) {
-        setError(err.response.data.message);
-        toast.error("Registration unsuccessful! "+ err.response.data.message);
-
-      }else{
       setError("Something went wrong. Please try again.");
       toast.error("Something went wrong. Please try again.");
-      console.log("Form submitted with error:", err.response);
-      }
+      console.log("Form submitted with error:", err);
     } finally {
       setloading(false);
     }

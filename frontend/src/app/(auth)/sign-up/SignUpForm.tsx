@@ -15,9 +15,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
-import axiosInstance from "@/config/axiosInstance";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { signUp } from "@/actions/auth";
 
 
 const signUpSchema = z.object({
@@ -45,22 +45,20 @@ export function SignUpForm() {
     setError(undefined);
 
     try {
-      const response = await axiosInstance.post("/auth/register", data);
-      if (response) {
+      const result = await signUp(data);
+      
+      if (result.success) {
         toast.success("Registration successful! ");
-        console.log("Form submission successful:", response.data);
+        console.log("Form submission successful:", result.data);
         router.push("/sign-in");
+      } else {
+        setError(result.error);
+        toast.error("Registration unsuccessful! " + result.error);
       }
     } catch (err: any) {
-      if (err.response?.data?.message) {
-        setError(err.response.data.message);
-        toast.error("Registration unsuccessful! "+ err.response.data.message);
-
-      }else{
       setError("Something went wrong. Please try again.");
       toast.error("Something went wrong. Please try again.");
-      console.log("Form submitted with error:", err.response);
-      }
+      console.log("Form submitted with error:", err);
     } finally {
       setloading(false);
     }

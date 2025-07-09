@@ -6,10 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
 import { FilterIcon } from "lucide-react";
-import axiosInstance from "@/config/axiosInstance";
 import { toast } from "sonner";
 import ExpenseSummaryByCategory from "@/components/ExpenseSummaryByCategory";
 import ExpenseTable from "@/components/ExpenseTable";
+import { getExpenses } from "@/actions/expenses";
 
 interface Expense {
   id: number;
@@ -34,10 +34,14 @@ export default function DashboardPage() {
   const fetchExpenses = async () => {
     setLoading(true);
     try {
-      const response = await axiosInstance.get("/expenses");
-      setExpenses(response.data);
-      setFilteredExpenses(response.data);
-      toast.success("Expenses loaded successfully!");
+      const result = await getExpenses();
+      if (result.success) {
+        setExpenses(result.data);
+        setFilteredExpenses(result.data);
+        toast.success("Expenses loaded successfully!");
+      } else {
+        toast.error(result.error);
+      }
     } catch (error) {
       console.error("Error fetching expenses:", error);
       toast.error("Failed to load expenses");
@@ -82,7 +86,6 @@ export default function DashboardPage() {
     applyFilters();
   };
 
-  const totalAmount = filteredExpenses.reduce((sum, expense) => sum + Number(expense.amount), 0);
 
   useEffect(() => {
     fetchExpenses();
@@ -150,7 +153,6 @@ export default function DashboardPage() {
       </Card>
 
 
-      {/* Category Summary Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <ExpenseTable
@@ -161,7 +163,6 @@ export default function DashboardPage() {
           />
         </div>
         
-        {/* Category Summary Component */}
         <div className="lg:col-span-1">
           <ExpenseSummaryByCategory />
         </div>

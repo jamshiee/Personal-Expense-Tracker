@@ -6,6 +6,24 @@ import { validate } from 'class-validator';
 const expenseRepo = AppDataSource.getRepository(Expense);
 
 
+
+export const getUserController = async (req: express.Request, res: express.Response): Promise<void> => {
+    try {
+        const user = req.user;
+        if (!user) {
+            res.status(404).json({ message: "User not found" });
+            return;
+        }
+        res.status(200).json({user: {
+            fullname: user.fullname,
+            email: user.email,
+        }});
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
 export const getExpensesController = async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         const user = req.user;

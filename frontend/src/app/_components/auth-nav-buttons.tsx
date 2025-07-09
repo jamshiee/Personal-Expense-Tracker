@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { useTokenValid } from "@/lib/tokenVerify";
+import { useAuth } from "@/lib/tokenVerify";
 import React from "react";
 const auth = {
   login: { text: "Sign in", url: "/sign-in" },
@@ -8,9 +8,9 @@ const auth = {
 };
 export default function AuthNavButtons() {
 
-    const tokenData = useTokenValid();
+    const {user} = useAuth();
 
-  if (tokenData && tokenData.isValid) {
+  if (user ) {
     return (
       <Button asChild size="sm" variant="outline">
         <a href="/app">Dashboard</a>

@@ -15,7 +15,6 @@ export default function DashboardLayout({
       <Header
         title="Add Expense"
         description="Add your expenses and keep track of it."
-        actions={<Button>+ Add</Button>}
       />
       <div
         className={cn("flex h-full flex-1 flex-col gap-6 md:gap-8", className)}
