@@ -27,7 +27,7 @@ export const getExpensesController = async (req: express.Request, res: express.R
     }
 }
 export const createExpenseController = async (req: express.Request, res: express.Response): Promise<void> => {
-    const { description, amount, date, category } = req.body;
+    const { description, amount, category } = req.body;
 
 
     try {
@@ -35,7 +35,7 @@ export const createExpenseController = async (req: express.Request, res: express
             amount: amount,
             category: category,
             description: description,
-            date: new Date(date),
+            date: Date.now(),
             user: req.user,
         });
         
@@ -55,7 +55,7 @@ export const createExpenseController = async (req: express.Request, res: express
 
 export const updateExpenseController = async (req: express.Request, res: express.Response): Promise<void> => {
     const { id } = req.params;
-    const { description, amount, date, category } = req.body;
+    const { description, amount, category } = req.body;
 
     try {
         const expense = await expenseRepo.findOneBy({ id: parseInt(id) });
@@ -67,7 +67,7 @@ export const updateExpenseController = async (req: express.Request, res: express
 
         expense.description = description;
         expense.amount = amount;
-        expense.date = new Date(date);
+        expense.date =  new Date();
         expense.category = category;
 
         await expenseRepo.save(expense);

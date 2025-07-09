@@ -1,7 +1,9 @@
 import express from 'express';
 import { createExpenseController, deleteExpenseController, getExpensesController, getExpenseSummaryController, updateExpenseController } from '../controllers/expenseController.js';
+import { jwtAuth } from '../middlewares/auth.js';
 
 const router = express.Router();
+router.use(jwtAuth)
 
 router.get('/expenses',getExpensesController);
 router.post('/expenses', createExpenseController);

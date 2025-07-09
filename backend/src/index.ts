@@ -1,7 +1,8 @@
-import '../types/express';
+// import '../types/express/index.d.ts';
 import 'reflect-metadata';
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import authRoutes from './routes/authRoutes.js';
 import expenseRoutes from './routes/expenseRoutes.js';
 import { AppDataSource } from './config/ormconfig.js';
@@ -9,6 +10,11 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
 
 app.use(express.json());
 
