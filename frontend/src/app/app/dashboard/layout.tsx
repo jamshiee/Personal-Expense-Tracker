@@ -7,10 +7,8 @@ import { redirect } from "next/navigation";
 
 export default function DashboardLayout({
   children,
-  className,
 }: {
   children: React.ReactNode;
-  className?: string;
 }) {
   return (
     <Shell className="relative flex flex-1 flex-col overflow-x-hidden">
@@ -21,7 +19,7 @@ export default function DashboardLayout({
 
       />
       <div
-        className={cn("flex h-full flex-1 flex-col gap-6 md:gap-8", className)}
+        className={cn("flex h-full flex-1 flex-col gap-6 md:gap-8")}
       >
         {children}
       </div>

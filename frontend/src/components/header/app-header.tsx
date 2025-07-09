@@ -1,7 +1,6 @@
-import { ArrowUpRight, Slash } from "lucide-react";
+import {  Slash } from "lucide-react";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "@/components/ui/button";
 import { UserNav } from "./user-nav";
 import { AppTabs } from "./app-tabs";
 import { Shell } from "./shell";

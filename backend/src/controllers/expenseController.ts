@@ -1,6 +1,7 @@
 import express from 'express';
 import { AppDataSource } from '../config/ormconfig.js';
 import { Expense } from '../entities/Expense.js';
+import { User } from '../entities/User.js';
 import { validate } from 'class-validator';
 
 const expenseRepo = AppDataSource.getRepository(Expense);
@@ -9,7 +10,7 @@ const expenseRepo = AppDataSource.getRepository(Expense);
 
 export const getUserController = async (req: express.Request, res: express.Response): Promise<void> => {
     try {
-        const user = req.user;
+        const user = req.user as User;
         if (!user) {
             res.status(404).json({ message: "User not found" });
             return;
@@ -26,7 +27,7 @@ export const getUserController = async (req: express.Request, res: express.Respo
 
 export const getExpensesController = async (req: express.Request, res: express.Response): Promise<void> => {
     try {
-        const user = req.user;
+        const user = req.user as User;
         if (!user) {
             res.status(404).json({ message: "User not found" });
             return;
@@ -117,7 +118,7 @@ export const deleteExpenseController = async (req: express.Request, res: express
 
 export const getExpenseSummaryController = async (req: express.Request, res: express.Response): Promise<void> => {
     try {
-        const user = req.user;
+        const user = req.user as User;
         if (!user) {
             res.status(404).json({ message: "User not found" });
             return;

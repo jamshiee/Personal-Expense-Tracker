@@ -17,7 +17,7 @@ import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { signUp } from "@/actions/auth";
+import { signUp ,type SignUpData } from "@/actions/auth";
 
 
 const signUpSchema = z.object({
@@ -45,7 +45,7 @@ export function SignUpForm() {
     setError(undefined);
 
     try {
-      const result = await signUp(data);
+      const result = await signUp(data as SignUpData);
       
       if (result.success) {
         toast.success("Registration successful! ");
@@ -55,7 +55,7 @@ export function SignUpForm() {
         setError(result.error);
         toast.error("Registration unsuccessful! " + result.error);
       }
-    } catch (err: any) {
+    } catch (err) {
       setError("Something went wrong. Please try again.");
       toast.error("Something went wrong. Please try again.");
       console.log("Form submitted with error:", err);

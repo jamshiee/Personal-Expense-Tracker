@@ -1,27 +1,25 @@
 "use client"
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import { LogOutIcon, Moon, Sun } from "lucide-react";
 import { useAuth } from "@/lib/tokenVerify";
+import { LogOutIcon } from "lucide-react";
 
-type User = {
-  fullname?: string;
-  email?: string;
-};
+// type User = {
+//   fullname?: string;
+//   email?: string;
+// };
 
-type UserData = {
-  user?: User;
-};
+// type UserData = {
+//   user?: User;
+// };
 
 export  function UserNav() {
 

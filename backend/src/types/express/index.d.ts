@@ -1,5 +1,4 @@
-import { User } from '../../entities/User';
-import express from 'express';
+import type { User } from '../../entities/User.js';
 
 declare global {
   namespace Express {

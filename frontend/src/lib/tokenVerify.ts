@@ -8,7 +8,6 @@ type DecodedUser = {
 
 export const useAuth = () => {
   const [user, setUser] = useState<DecodedUser | null>(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserFromToken = async () => {
@@ -23,11 +22,9 @@ export const useAuth = () => {
           setUser(null);
         }
       } catch (err) {
-        console.warn("Unauthorized or token missing/invalid");
+        console.warn("Unauthorized or token missing/invalid" , err);
         setUser(null);
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
 
     fetchUserFromToken();

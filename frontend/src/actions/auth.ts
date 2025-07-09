@@ -20,7 +20,7 @@ export async function signIn(data: SignInData) {
       success: true,
       data: response.data,
     };
-  } catch (err: any) {
+  } catch (err) {
     return {
       success: false,
       error: err.response?.data?.message || "Something went wrong. Please try again.",
@@ -35,7 +35,7 @@ export async function signUp(data: SignUpData) {
       success: true,
       data: response.data,
     };
-  } catch (err: any) {
+  } catch (err) {
     return {
       success: false,
       error: err.response?.data?.message || "Something went wrong. Please try again.",
@@ -45,7 +45,6 @@ export async function signUp(data: SignUpData) {
 
 export async function signOut() {
   try {
-    // Clear token from localStorage
     if (typeof window !== "undefined") {
       localStorage.removeItem("token");
     }
@@ -53,6 +52,7 @@ export async function signOut() {
       success: true,
     };
   } catch (error) {
+    console.log(error)
     return {
       success: false,
       error: "Failed to sign out",
@@ -60,15 +60,4 @@ export async function signOut() {
   }
 }
 
-export async function validateToken(token: string) {
-  try {
-    const response = await axiosInstance.get("/auth/validate", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.status === 200;
-  } catch (error) {
-    return false;
-  }
-}
+

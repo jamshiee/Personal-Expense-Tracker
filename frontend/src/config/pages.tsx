@@ -34,7 +34,7 @@ export const pagesConfig = [
 
 ] as const satisfies readonly Page[];
 
-type MarketingPageType = Page;
+// type MarketingPageType = Page;
 
 
 export function getPageBySegment(

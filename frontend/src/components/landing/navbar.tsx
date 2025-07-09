@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { Book, Menu, Sunset, Trees, Zap } from "lucide-react";
+import { Menu } from "lucide-react";
 
 
+import AuthNavButtons from "@/app/_components/auth-nav-buttons";
 import {
   Sheet,
   SheetContent,
@@ -10,7 +11,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Image from "next/image";
-import AuthNavButtons from "@/app/_components/auth-nav-buttons";
 
 interface MenuItem {
   title: string;

@@ -1,5 +1,5 @@
 "use client"
-import { ArrowRight, Globe } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import NavbarLanding from "@/components/landing/navbar";
 import Link from "next/link";
 

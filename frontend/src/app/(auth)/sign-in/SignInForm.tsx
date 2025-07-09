@@ -17,7 +17,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { signIn } from "@/actions/auth";
+import { signIn, type SignInData } from "@/actions/auth";
 
 
 export const signInSchema = z.object({
@@ -44,7 +44,7 @@ export function SignInForm() {
     setError(undefined);
 
     try {
-      const result = await signIn(data);
+      const result = await signIn(data as SignInData);
       
       if (result.success) {
         localStorage.setItem("token", result.data.accessToken);
@@ -55,7 +55,7 @@ export function SignInForm() {
         setError(result.error);
         toast.error("Login unsuccessful! " + result.error);
       }
-    } catch (err: any) {
+    } catch (err) {
       setError("Something went wrong. Please try again.");
       toast.error("Something went wrong. Please try again.");
       console.log("Form submitted with error:", err);
