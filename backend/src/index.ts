@@ -1,3 +1,4 @@
+import '../types/express';
 import 'reflect-metadata';
 import express from 'express';
 import dotenv from 'dotenv';
@@ -12,7 +13,7 @@ const app = express();
 app.use(express.json());
 
 app.use('/api/auth', authRoutes)
-app.use('/api/auth', expenseRoutes)
+app.use('/api', expenseRoutes)
 
 AppDataSource.initialize()
   .then(() => {

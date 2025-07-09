@@ -1,6 +1,13 @@
-import * as express from 'express';
+import express from 'express';
+import { createExpenseController, deleteExpenseController, getExpensesController, getExpenseSummaryController, updateExpenseController } from '../controllers/expenseController.js';
 
 const router = express.Router();
+
+router.get('/expenses',getExpensesController);
+router.post('/expenses', createExpenseController);
+router.put('/expenses/:id', updateExpenseController);
+router.delete('/expenses/:id', deleteExpenseController);
+router.get('/expenses/summary', getExpenseSummaryController);
 
 
 

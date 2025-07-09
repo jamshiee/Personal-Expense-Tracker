@@ -11,7 +11,7 @@ passport.use(new JwtStrategy({
   secretOrKey: process.env.JWT_SECRET!,
 }, async (payload, done) => {
   const repo = AppDataSource.getRepository(User);
-  const user = await repo.findOneBy({ id: payload.sub as string });
+  const user = await repo.findOneBy({ id: payload.sub });
   return user ? done(null, user) : done(null, false);
 }));
 
