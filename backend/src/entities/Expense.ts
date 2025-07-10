@@ -29,6 +29,6 @@ description!: string;
 @IsDate()
 date!: Date;
 
-@ManyToOne(() => User, (user) => user.expenses)
-user!: User;
+@ManyToOne(() => User, user => user.expenses)
+user: any;
 }
