@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(cors({
-  origin: 'https://personal-expense-tracker-li98rc8qo-jamshiees-projects.vercel.app',
+  origin: 'https://personal-expense-tracker-sage.vercel.app/',
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
