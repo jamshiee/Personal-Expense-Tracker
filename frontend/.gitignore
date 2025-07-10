@@ -13,6 +13,8 @@
 # testing
 /coverage
 
+withAuth.tsx
+middleware.ts
 # next.js
 /.next/
 /out/

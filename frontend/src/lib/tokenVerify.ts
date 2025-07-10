@@ -32,3 +32,12 @@ export const useAuth = () => {
 
   return { user,loading };
 };
+
+export const useTokenValid = () => {
+  const { user, loading } = useAuth();
+  
+  return { 
+    isValid: !!user, 
+    isLoading: loading 
+  };
+};
