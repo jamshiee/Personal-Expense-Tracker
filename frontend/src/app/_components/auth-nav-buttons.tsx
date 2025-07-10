@@ -7,7 +7,6 @@ const auth = {
   signup: { text: "Sign up", url: "/sign-up" },
 };
 export default function AuthNavButtons() {
-
     const {user} = useAuth();
 
   if (user ) {

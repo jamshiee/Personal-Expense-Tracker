@@ -22,6 +22,7 @@ import { LogOutIcon } from "lucide-react";
 // };
 
 export  function UserNav() {
+  const {user} = useAuth();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -29,7 +30,6 @@ export  function UserNav() {
     window.location.href = "/sign-in";
   };
 
-  const {user} = useAuth();
 
   return (
     <DropdownMenu>

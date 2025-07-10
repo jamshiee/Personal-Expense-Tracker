@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import axiosInstance from "@/config/axiosInstance";
 
@@ -8,27 +9,26 @@ type DecodedUser = {
 
 export const useAuth = () => {
   const [user, setUser] = useState<DecodedUser | null>(null);
+ const [loading, setLoading] = useState(true);
+  const fetchUserFromToken = async () => {
+    await axiosInstance
+      .get("/getuser")
+      .then((res) => {
+        console.log("User data fetched successfully:", res.data.user);
+        setUser(res.data.user);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setUser(null);
+        setLoading(false);
+        console.error("Error fetching user data:", error);
+      });
+  };
 
   useEffect(() => {
-    const fetchUserFromToken = async () => {
-      try {
-        const res = await axiosInstance.get("/getuser");
-
-        // Assume backend sends { user: { ...decodedData } }
-        if (res.status === 200 && res.data.user) {
-          console.log("User data fetched successfully:", res.data.user);
-          setUser(res.data.user);
-        } else {
-          setUser(null);
-        }
-      } catch (err) {
-        console.warn("Unauthorized or token missing/invalid" , err);
-        setUser(null);
-      } 
-    };
-
     fetchUserFromToken();
   }, []);
 
-  return { user };
+
+  return { user,loading };
 };

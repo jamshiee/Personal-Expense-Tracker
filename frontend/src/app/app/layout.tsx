@@ -2,40 +2,30 @@
 import { AppHeader } from "@/components/header/app-header";
 import { useAuth } from "@/lib/tokenVerify";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function AppLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-  const{ user }= useAuth();
   const router = useRouter();
+  const [userData, setUserData] = useState();
+  const { user, loading } = useAuth();
+  console.log("user", user);
+  useEffect(() => {
+    if (!user) {
+      router.push("/sign-in");
+    }
+  }, []);
 
-  
-    useEffect(() => {
-      if (!user) {
-        router.push("/sign-in");
-      } else {
-        router.push("/app/dashboard");
-      }
-      console.log("user", user);
-    }, [user, router]);
- 
-
-  if (!user) {
+  if (loading)
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center"> 
-          <h1 className="text-2xl font-bold">Loading...</h1>
-          <p className="mt-2 text-gray-500">Please wait while we verify your session...</p>
-        </div>
-    </div>
+      <div>
+        <h1 className="text-2xl font-bold text-center">Loading...</h1>
+        <p className="text-center">Please wait while we fetch your data.</p>
+      </div>
     );
-  }
-
-  
 
   return (
     <div className="relative mx-auto flex min-h-screen w-full flex-col items-center justify-center gap-6 p-4">
