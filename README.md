@@ -71,8 +71,3 @@ JWT_SECRET=your_jwt_secret
 PORT=5050
 ```
 
-### Frontend (.env.local)
-```env
-NEXT_PUBLIC_API_URL=http://localhost:5050/api
-```
-
